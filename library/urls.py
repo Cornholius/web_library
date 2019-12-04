@@ -16,19 +16,19 @@ Including another URLconf
 from django.urls import path, include
 from django.http import HttpResponse
 from .models import Library
-from library.views import HomeView
+from library.views import HomeView, index
 
 def get_book_by_id(request, book_id):
     name = Library.objects.get(id=book_id,)
     author = name.author
     bookname = name.book_name
     desc = name.description
-    return HttpResponse(f'{author} '
-                        f'{bookname} '
-                        f'{desc}')
+    return HttpResponse(f'{author} {bookname} {desc}')
+
+
 
 
 urlpatterns = [
-        path('', HomeView.as_view()),
+        path('', index),
         path('<int:book_id>', get_book_by_id)
 ]
