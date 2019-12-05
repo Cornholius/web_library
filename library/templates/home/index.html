@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Simple library</title>
+        <style>
+            aside {
+                background: #f0f0f0;
+                padding: 10px;
+                float: top;
+                }
+            article {
+                margin-right: 240px;
+                }
+         </style>
+    </head>
+    <body>
+        <aside>
+            <input type="submit" value="Искать книгу" >
+            <input type="submit" value="Добавить книгу" >
+            <input type="submit" value="Удалить книгу" >
+            <form method="POST">
+                {% csrf_token %}
+            <table>
+                {{ form }}
+            </table>
+                <input type="submit" value="Send" >
+            </form>
+        </aside>
+        <header><h1>{{ author }}</h1></header>
+        <header><h2>{{ bookname }}</h2></header>
+        <article>
+            {{  description }}
+        </article>
+    </body>
+</html>
