@@ -1,52 +1,36 @@
-<form class="form-horizontal">
-<fieldset>
-
-<!-- Main Form Name -->
-<legend>Библиотека</legend>
-
-<!-- Book name input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="bookname_input">Название</label>
-  <div class="col-md-5">
-  <input id="bookname_input" name="bookname_input" type="text" placeholder="" class="form-control input-md">
-
-  </div>
-</div>
-
-<!-- Author input-->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="autor_input">Автор</label>
-  <div class="col-md-5">
-  <input id="autor_input" name="autor_input" type="text" placeholder="" class="form-control input-md">
-
-  </div>
-</div>
-
-<!-- Find book Button -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="find_button"></label>
-  <div class="col-md-4">
-    <button id="find_button" name="find_button" class="btn btn-primary">Найти</button>
-    <a href="../add">About</a>
-
-  </div>
-</div>
-
-<!-- Add book Button -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="addbook_button"></label>
-  <div class="col-md-4">
-    <button id="addbook_button" name="addbook_button" class="btn btn-primary">Добавить книгу</button>
-  </div>
-</div>
-
-<!-- Delete book Button -->
-<div class="form-group">
-  <label class="col-md-4 control-label" for="deletebook_button"></label>
-  <div class="col-md-4">
-    <button id="deletebook_button" name="deletebook_button" class="btn btn-primary">Удалить книгу</button>
-  </div>
-</div>
-
-</fieldset>
-</form>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Simple library</title>
+        <style>
+            aside {
+                background: #f0f0f0;
+                padding: 10px;
+                float: top;
+                }
+            article {
+                margin-right: 240px;
+                }
+         </style>
+    </head>
+    <body>
+        <aside>
+            <input type="submit" value="Искать книгу" >
+            <input type="submit" value="Добавить книгу" >
+            <input type="submit" value="Удалить книгу" >
+            <form method="POST">
+                {% csrf_token %}
+            <table>
+                {{ form }}
+            </table>
+                <input type="submit" value="Send" >
+            </form>
+        </aside>
+        <header><h1>{{ author }}</h1></header>
+        <header><h2>{{ bookname }}</h2></header>
+        <article>
+            {{  description }}
+        </article>
+    </body>
+</html>
