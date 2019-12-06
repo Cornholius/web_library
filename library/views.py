@@ -5,6 +5,10 @@ from django.http import HttpResponse
 from .models import Library
 import sqlite3
 
+def all_books(request):
+    books = Library
+    return render(request, "home/2.html", {'books': books})
+
 
 def find_book(request):
     if request.method == "POST":
@@ -17,11 +21,11 @@ def find_book(request):
                       f"WHERE book_name like '%{name}%' " \
                       f"OR author like '%{name}%'"
         cursor.execute(sql_recuest)
-        result = cursor.fetchall()
+        result = cursor.fetchall()  #   one - одна запись.  all - все записи
         print(result)
         print(result[0])
         try:
-            return render(request, "home/index.html", {"search_recuest": UserForm,
+            return render(request, "home/2.html", {"search_recuest": UserForm,
                                                        "author": result[0],
                                                        "bookname": result[1],
                                                        "description": result[2]})

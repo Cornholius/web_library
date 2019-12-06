@@ -7,7 +7,6 @@ class Library(models.Model):
     book_name = models.CharField(max_length=120, null=False)
     description = models.CharField(max_length=1200, null=False)
 
-    def gfd(self):
-        return self.author, self.book_name, self.description
 
 
+library = Library

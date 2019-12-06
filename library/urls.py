@@ -16,10 +16,11 @@ Including another URLconf
 from django.urls import path
 from django.http import HttpResponse
 from .models import Library
-from library.views import HomeView, find_book
+from library.views import HomeView, find_book, all_books
 
 
 urlpatterns = [
         path('', find_book),
+        path('1/', all_books),
         path('z/', find_book)
 ]
