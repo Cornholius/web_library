@@ -5,60 +5,35 @@ from django.http import HttpResponse
 from .models import Library
 import sqlite3
 
-"""
-в index мы получаем в переменную из строки поиска.
-надо реализовать поиск в базе по значению из переменной
-вывести полностью всю книгу на страницу"""
-
 
 def find_book(request):
     if request.method == "POST":
-        name = request.POST.get("name")
+        name_from_form = request.POST.get("name")
+        name = str(name_from_form).capitalize()
         connection = sqlite3.connect('db.sqlite3')
         cursor = connection.cursor()
-        sql_recuest = f"SELECT author, book_name, description FROM library_library WHERE book_name = '{name}'"
+        sql_recuest = f"SELECT author, book_name, description " \
+                      f"FROM library_library " \
+                      f"WHERE book_name like '%{name}%' " \
+                      f"OR author like '%{name}%'"
         cursor.execute(sql_recuest)
-        result = cursor.fetchone()
-        # try:
-        #     return HttpResponse(result[0:])
-        #
-        # except:
-        #     return HttpResponse("книга не найдена")
-        return render(request, "home/index.html", {"author": result[0], "bookname": result[1], "description": result[2]})
+        result = cursor.fetchall()
+        print(result)
+        print(result[0])
+        try:
+            return render(request, "home/index.html", {"search_recuest": UserForm,
+                                                       "author": result[0],
+                                                       "bookname": result[1],
+                                                       "description": result[2]})
+        except:
+            return render(request, "home/index.html", {"search_recuest": UserForm,
+                                                       "author": "Автор или Книга не найдены"})
 
     else:
-        userform = UserForm()
-        return render(request, "home/index.html", {"form": userform})
+        return render(request, "home/index.html", {"search_recuest": UserForm})
 
 
 class HomeView(View):
 
     def get(self, request):
         return render(request, 'home/index.html')
-
-    def find_book(self):
-        if request.method == "POST":
-            name = request.POST.get("name")
-            connection = sqlite3.connect('db.sqlite3')
-            cursor = connection.cursor()
-            sql_recuest = f"SELECT author, book_name, description FROM library_library WHERE book_name = '{name}'"
-            cursor.execute(sql_recuest)
-            result = cursor.fetchone()
-            try:
-                return HttpResponse(result[0:])
-
-            except:
-                return HttpResponse("книга не найдена")
-        else:
-            userform = UserForm()
-            return render(request, "home/index.html", {"form": userform})
-
-
-# def index(request):
-#     if request.method == "POST":
-#         name = request.POST.get("name")
-#         # age = request.POST.get("age")     # получение значения поля age
-#         return HttpResponse("<h2>Hello, {0}</h2>".format(name))
-#     else:
-#         userform = UserForm()
-#         return render(request, "home/index.html", {"form": userform})

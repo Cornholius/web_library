@@ -6,26 +6,35 @@
         <style>
             aside {
                 background: #f0f0f0;
-                padding: 10px;
+                padding: 30px;
                 float: top;
                 }
             article {
-                margin-right: 240px;
+                margin-right: 120px;
+                }
+            blog1 {
+                float: left;
+                display: inline-block;
+                }
+            blog2 {
+                float: right;
+                display: inline-block;
                 }
          </style>
     </head>
     <body>
         <aside>
-            <input type="submit" value="Искать книгу" >
-            <input type="submit" value="Добавить книгу" >
-            <input type="submit" value="Удалить книгу" >
+            <blog1>
             <form method="POST">
                 {% csrf_token %}
-            <table>
-                {{ form }}
-            </table>
+                {{ search_recuest }}
                 <input type="submit" value="Send" >
             </form>
+            </blog1>
+            <blog2>
+                <input type="submit" value="Добавить книгу" >
+                <input type="submit" value="Удалить книгу" >
+            </blog2>
         </aside>
         <header><h1>{{ author }}</h1></header>
         <header><h2>{{ bookname }}</h2></header>
