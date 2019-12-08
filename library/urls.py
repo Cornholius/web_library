@@ -14,13 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
-from django.http import HttpResponse
-from .models import Library
-from library.views import HomeView, find_book, all_books
-
+from library.views import BookView
 
 urlpatterns = [
-        path('', find_book),
-        path('1/', all_books),
-        path('z/', find_book)
+        path('', BookView.as_view()),
+        path('result/', BookView.as_view())
 ]
