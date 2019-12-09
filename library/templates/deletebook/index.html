@@ -24,26 +24,22 @@
     </head>
     <body>
         <aside>
-            <blog1>
-            <form method="POST">
-                {% csrf_token %}
-                {{ search_recuest }}
-                <input type="submit" value="Искать"  >
-            </form>
-            </blog1>
             <blog2>
-                <input type="submit" value="Добавить книгу" onclick="location.href='/addbook/'">
-                <input type="submit" value="Удалить книгу" onclick="location.href='deletebook/'" >
+                <input type="submit" value="Искать книгу" onclick="location.href='../'">
+                <input type="submit" value="Добавить книгу" onclick="location.href='../addbook/'" >
                 <input type="submit" value="Все книги" onclick="location.href='../allbooks/'" >
             </blog2>
         </aside>
-        <header><h1>{{ book_not_found }}</h1></header>
-            {% for book in books %}
+        <p></p>
         <aside>
-            <h1>{{ book.author }}</h1>
-            <h2>{{ book.book_name }}</h2>
-            <p>{{ book.description }}</p>
+            <form method="POST">
+                <table>
+                    {% csrf_token %}
+                    {{ form.as_table }}
+                </table>
+                <input type="submit" value="Удалить книгу"  >
+            </form>
+            <h1> {{ book_deleted }} </h1>
         </aside>
-            {% endfor %}
     </body>
 </html>
