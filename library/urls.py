@@ -13,35 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path, include
-from django.http import HttpResponse
-from .models import Library
-from library.views import HomeView, find_book
-import sqlite3
-
-def get_book_by_id(request, book_id):
-    name = Library.objects.get(id=book_id,)
-    author = name.author
-    bookname = name.book_name
-    desc = name.description
-    return HttpResponse(f'{author} {bookname} {desc}')
-
-# def find_book():
-#     connection = sqlite3.connect('db.sqlite3')
-#     cursor = connection.cursor()
-#
-#     cursor.execute("""
-#         SELECT author, book_name, description
-#         FROM library_library
-#         WHERE book_name = 'qwerty2'
-#         """)
-#     return HttpResponse(cursor.fetchone())
-#     print(cursor.fetchone())
-
-
+from django.urls import path
+from library.views import BookView
 
 urlpatterns = [
-        path('', find_book),
-        path('z/', find_book),
-        path('<int:book_id>', get_book_by_id)
+        path('', BookView.as_view()),
+        path('result/', BookView.as_view())
 ]
